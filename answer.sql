@@ -57,4 +57,4 @@ WHERE oldStatus != newStatus GROUP BY cardID;
 
 
 -- These queries provide insights into the daily average users and status changes
--- for each card in your Shiptivity application.
+-- for each card in Shiptivity application.
