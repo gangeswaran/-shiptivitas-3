@@ -4,16 +4,12 @@
 
 
 -- Overall Daily Average Users
-SELECT 'Overall' AS Analysis_Type,strftime('%m-%d-%Y', DATETIME(login_timestamp, 'unixepoch')) AS Day, COUNT(*) AS Daily_Users FROM login_history GROUP BY Analysis_Type, Day
+SELECT 'Overall' AS Analysis_Type, strftime('%m-%d-%Y', DATETIME(login_timestamp, 'unixepoch')) AS Day, COUNT(*) AS Daily_Users FROM login_history GROUP BY Analysis_Type, Day
 
 UNION
 
 -- Overall Average Daily Users
-SELECT 'Overall' AS Analysis_Type, NULL AS Day, AVG(dayCount) AS Average_Daily_Users
-FROM (
-    SELECT COUNT(*) AS dayCount FROM login_history
-    GROUP BY strftime('%m-%d-%Y', DATETIME(login_timestamp, 'unixepoch'))
-)
+SELECT 'Overall' AS Analysis_Type, NULL AS Day, AVG(dayCount) AS Average_Daily_Users FROM ( SELECT COUNT(*) AS dayCount FROM login_history GROUP BY strftime('%m-%d-%Y', DATETIME(login_timestamp, 'unixepoch')))
 
 UNION
 
@@ -51,8 +47,7 @@ FROM (
 
 
 -- Count the number of status changes by card
-SELECT cardID, COUNT(*) AS Status_Changes FROM card_change_history 
-WHERE oldStatus != newStatus GROUP BY cardID;
+SELECT cardID, COUNT(*) AS Status_Changes FROM card_change_history WHERE oldStatus != newStatus GROUP BY cardID;
 
 
 
